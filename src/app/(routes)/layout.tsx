@@ -24,8 +24,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  modal,
 }: Readonly<{
   children: React.ReactNode;
+  modal: React.ReactNode;
 }>) {
   return (
     <html lang='en' suppressHydrationWarning>
@@ -33,10 +35,11 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Theme>
+          {modal}
           <div className='flex min-h-screen'>
             <DesktopNav />
             <div className='p-4 mt-6 flex justify-around w-full'>
-              {children}
+              <div className='w-full'>{children}</div>
             </div>
           </div>
           <MobileNav />

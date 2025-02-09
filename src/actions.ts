@@ -3,6 +3,7 @@
 import { prisma } from '@/db';
 import { redirect } from 'next/navigation';
 import { auth } from './auth';
+import { uniq } from 'lodash';
 
 export const getSessionEmailOrThrow = async () => {
   const session = await auth();
@@ -103,4 +104,36 @@ export const removeLikeFromPost = async (postId: string) => {
       },
     }),
   ]);
+};
+
+export const getSinglePostData = async (postId: string) => {
+  // Fetch post details
+  const post = await prisma.post.findFirstOrThrow({ where: { id: postId } });
+
+  // Fetch user profile
+  const profile = await prisma.profile.findFirstOrThrow({
+    where: { email: post.author },
+  });
+
+  // Fetch comments for the post
+  const comments = await prisma.comment.findMany({
+    where: { postId: postId },
+  });
+
+  // Fetch unique authors of the comments
+  const uniqueAuthors = uniq(comments.map((c) => c.author));
+  const commentsAuthors = await prisma.profile.findMany({
+    where: {
+      email: { in: uniqueAuthors },
+    },
+  });
+
+  // Fetch my like
+  const myLike = await prisma.like.findFirst({
+    where: {
+      postId: postId,
+      author: await getSessionEmailOrThrow(),
+    },
+  });
+  return { post, profile, comments, commentsAuthors, myLike };
 };

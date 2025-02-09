@@ -30,9 +30,9 @@ const DesktopNav = () => {
             Search
           </Link>
 
-          <Link href='/browser'>
+          <Link href='/browse'>
             <LayoutGridIcon />
-            Browser
+            Browse
           </Link>
 
           <Link href='/profile'>

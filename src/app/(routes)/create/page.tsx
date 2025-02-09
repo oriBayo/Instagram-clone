@@ -28,6 +28,7 @@ const CreatePage = () => {
 
   return (
     <form
+      className='max-w-lg mx-auto'
       action={async (data: FormData) => {
         const id = await postEntry(data);
         router.push(`/posts/${id}`);
@@ -42,16 +43,20 @@ const CreatePage = () => {
         className='hidden'
       />
       <div className='flex flex-col gap-4'>
-        <div className=' relative w-64 min-h-64 rounded-md bg-gray-400 p-2'>
+        <div className=' relative w-auto min-h-64 rounded-md bg-gray-400 p-2 '>
           {imageUrl && (
             <Image
               className='rounded-md'
               src={imageUrl || ''}
               alt=''
-              width={1024}
-              height={768}
-              layout='responsive'
-              quality={75}
+              width={200}
+              height={200}
+              quality={50}
+              style={{
+                width: '200px',
+                height: '200px',
+                objectFit: 'cover', // Optional: Customize fit behavior
+              }}
             />
           )}
 

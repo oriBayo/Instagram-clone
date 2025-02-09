@@ -9,12 +9,12 @@ import Image from 'next/image';
 
 type SettingsFormProps = {
   userEmail: string;
-  profile: Profile;
+  profile: Profile | null;
 };
 
 const SettingsForm = ({ profile }: SettingsFormProps) => {
   const [file, setFile] = useState<File>();
-  const [avatar, setAvatar] = useState(profile.avatar || '');
+  const [avatar, setAvatar] = useState(profile?.avatar || '');
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -74,23 +74,23 @@ const SettingsForm = ({ profile }: SettingsFormProps) => {
       <TextField.Root
         name='username'
         placeholder='username'
-        defaultValue={profile.username || ''}
+        defaultValue={profile?.username || ''}
       />
       <p className='mt-2 font-bold'>name</p>
       <TextField.Root
         name='name'
         placeholder='name'
-        defaultValue={profile.name || ''}
+        defaultValue={profile?.name || ''}
       />
       <p className='mt-2 font-bold'>subtitle</p>
       <TextField.Root
         name='subtitle'
         placeholder='subtitle'
-        defaultValue={profile.subtitle || ''}
+        defaultValue={profile?.subtitle || ''}
       />
       <p className='mt-2 font-bold'>bio</p>
-      <TextArea name='bio' defaultValue={profile.bio || ''} />
-      <div className='mt-4 flex justify-end'>
+      <TextArea name='bio' defaultValue={profile?.bio || ''} />
+      <div className='mt-4 flex justify-center'>
         <Button variant='solid' type='submit'>
           Save Settings
         </Button>
