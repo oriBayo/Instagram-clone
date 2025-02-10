@@ -11,7 +11,11 @@ const SearchForm = () => {
         router.push(`/search?query=${data.get('query')}`);
       }}
     >
-      <TextField.Root name='query' placeholder='Search for post or users...'>
+      <TextField.Root
+        size='3'
+        name='query'
+        placeholder='Search for post or users...'
+      >
         <TextField.Slot>
           <SearchIcon />
         </TextField.Slot>

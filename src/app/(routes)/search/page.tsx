@@ -2,19 +2,18 @@ import SearchForm from '@/components/SearchForm';
 import SearchResult from '@/components/SearchResult';
 import { Suspense } from 'react';
 
-const SearchPage = ({
-  searchParams: { query },
+const SearchPage = async ({
+  searchParams,
 }: {
-  searchParams: { query: string };
+  searchParams: Promise<{ query: string }>;
 }) => {
+  const query = (await searchParams).query;
   return (
-    <div className='max-w-lg mx-auto'>
-      <SearchForm />
-      <div className='mt-5'>
+    <div className='w-full'>
+      <div className='max-w-md mx-auto'>
+        <SearchForm />
         <Suspense fallback='Loading...'>
-          <div className='mt-10'>
-            <SearchResult query={query} />
-          </div>
+          <SearchResult query={query} />
         </Suspense>
       </div>
     </div>
