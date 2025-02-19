@@ -38,7 +38,7 @@ export default function RootLayout({
           {modal}
           <div className='flex min-h-screen'>
             <DesktopNav />
-            <div className='p-4 mt-6 flex justify-around w-full'>
+            <div className='p-2 mt-6 flex justify-around w-full'>
               <div className='w-full'>{children}</div>
             </div>
           </div>

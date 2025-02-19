@@ -10,11 +10,13 @@ const SearchPage = async ({
   const query = (await searchParams).query;
   return (
     <div className='w-full'>
-      <div className='max-w-md mx-auto'>
+      <div className='max-w-lg mx-auto'>
         <SearchForm />
-        <Suspense fallback='Loading...'>
-          <SearchResult query={query} />
-        </Suspense>
+        {typeof query !== 'undefined' && (
+          <Suspense fallback='Loading...'>
+            <SearchResult query={query} />
+          </Suspense>
+        )}
       </div>
     </div>
   );

@@ -5,15 +5,12 @@ import React from 'react';
 
 const PostResults = ({ posts }: { posts: Post[] }) => {
   return (
-    <div className='grid grid-col'>
+    <div className='grid grid-cols-3 gap-3 w-full'>
       {posts.map((post) => (
-        <Link
-          className='bg-gray-200 border border-gray-300 p-5 flex gap-4 rounded-full items-center'
-          key={post.id}
-          href={`/post/${post.id}`}
-        >
-          <div className='size-24 flex items-center'>
+        <Link key={post.id} href={`/posts/${post.id}`}>
+          <div className='size-36 flex items-center m-auto justify-center'>
             <Image
+              className='rounded-lg'
               src={post.image}
               alt=''
               width={1024}
@@ -22,7 +19,6 @@ const PostResults = ({ posts }: { posts: Post[] }) => {
               quality={75}
             />
           </div>
-          <div>{post.description}</div>
         </Link>
       ))}
     </div>

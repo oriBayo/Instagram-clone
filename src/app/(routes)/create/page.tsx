@@ -45,19 +45,21 @@ const CreatePage = () => {
       <div className='flex flex-col gap-4'>
         <div className=' relative w-auto min-h-64 rounded-md bg-gray-400 p-2 '>
           {imageUrl && (
-            <Image
-              className='rounded-md'
-              src={imageUrl || ''}
-              alt=''
-              width={200}
-              height={200}
-              quality={50}
-              style={{
-                width: '200px',
-                height: '200px',
-                objectFit: 'cover', // Optional: Customize fit behavior
-              }}
-            />
+            <div className='flex justify-center items-center'>
+              <Image
+                className='rounded-md flex-auto'
+                src={imageUrl || ''}
+                alt=''
+                width={200}
+                height={200}
+                quality={50}
+                style={{
+                  width: '200px',
+                  height: '200px',
+                  objectFit: 'cover', // Optional: Customize fit behavior
+                }}
+              />
+            </div>
           )}
 
           <div className='absolute inset-0 flex justify-center items-center'>

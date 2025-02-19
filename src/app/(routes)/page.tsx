@@ -1,23 +1,13 @@
-import { signIn, auth, signOut } from '@/auth';
+import { signIn, auth } from '@/auth';
+import UserHome from '@/components/UserHome';
 
 export default async function Home() {
   const session = await auth();
+
   return (
-    <main>
+    <div className='px-6'>
       {session ? (
-        <form
-          action={async () => {
-            'use server';
-            await signOut();
-          }}
-        >
-          <button
-            className='border px-4 py-2 bg-ig-red text-white rounded-lg'
-            type='submit'
-          >
-            Logout
-          </button>
-        </form>
+        <UserHome />
       ) : (
         <form
           action={async () => {
@@ -33,6 +23,6 @@ export default async function Home() {
           </button>
         </form>
       )}
-    </main>
+    </div>
   );
 }

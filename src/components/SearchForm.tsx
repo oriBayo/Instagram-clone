@@ -17,7 +17,12 @@ const SearchForm = () => {
         placeholder='Search for post or users...'
       >
         <TextField.Slot>
-          <SearchIcon />
+          <button
+            type='submit'
+            className='bg-transparent border-none cursor-pointer'
+          >
+            <SearchIcon />
+          </button>
         </TextField.Slot>
       </TextField.Root>
     </form>
