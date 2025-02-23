@@ -2,9 +2,15 @@ import Comment from '@/components/Comment';
 import SessionCommentForm from '@/components/SessionCommentForm';
 import Image from 'next/image';
 import React from 'react';
-import { Comment as CommentModel, Like, Post, Profile } from '@prisma/client';
-import { BookmarkIcon } from 'lucide-react';
+import {
+  Bookmark,
+  Comment as CommentModel,
+  Like,
+  Post,
+  Profile,
+} from '@prisma/client';
 import LikesInfo from '@/components/Like';
+import BookmarkIcon from './Bookmark';
 
 const SinglePostContent = async ({
   post,
@@ -12,12 +18,14 @@ const SinglePostContent = async ({
   comments,
   commentsAuthors,
   myLike,
+  bookmark,
 }: {
   post: Post;
   authorProfile: Profile;
   comments: CommentModel[];
   commentsAuthors: Profile[];
   myLike: Like | null;
+  bookmark: Bookmark | null;
 }) => {
   return (
     <div className='grid md:grid-cols-2 gap-4 m-5'>
@@ -59,9 +67,7 @@ const SinglePostContent = async ({
             <LikesInfo post={post} isLiked={!!myLike} />
           </div>
           <div>
-            <button>
-              <BookmarkIcon />
-            </button>
+            <BookmarkIcon post={post} isActive={!!bookmark} />
           </div>
         </div>
         <div className='mt-6 pt-8 border-t border-t-gray-300'>

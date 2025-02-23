@@ -4,8 +4,10 @@ import { prisma } from '@/db';
 import HomePosts from './HomePosts';
 
 const UserHome = async () => {
+  const sessionEmail = await getSessionEmailOrThrow();
+
   const follows = await prisma.follower.findMany({
-    where: { followingProfileEmail: await getSessionEmailOrThrow() },
+    where: { followingProfileEmail: sessionEmail },
   });
 
   const profiles = await prisma.profile.findMany({
@@ -25,13 +27,30 @@ const UserHome = async () => {
   });
 
   const likes = await prisma.like.findMany({
-    where: { author: await getSessionEmailOrThrow() },
+    where: { author: sessionEmail },
   });
 
+  const comments = await prisma.comment.findMany({
+    where: {
+      postId: { in: posts.map((post) => post.id) },
+    },
+  });
+
+  const bookmarks = await prisma.bookmark.findMany({
+    where: {
+      author: sessionEmail,
+    },
+  });
   return (
     <div>
       <HomeTopRow profiles={profiles} />
-      <HomePosts posts={posts} profiles={profiles} likes={likes} />
+      <HomePosts
+        bookmarks={bookmarks}
+        posts={posts}
+        profiles={profiles}
+        likes={likes}
+        comments={comments}
+      />
     </div>
   );
 };

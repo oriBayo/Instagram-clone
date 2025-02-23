@@ -67,6 +67,26 @@ export const createComment = async (data: FormData, postId: string) => {
   });
 };
 
+export const createBookmark = async (postId: string) => {
+  const userEmail = await getSessionEmailOrThrow();
+  await prisma.bookmark.create({
+    data: {
+      author: userEmail,
+      postId: postId,
+    },
+  });
+};
+
+export const deleteBookmark = async (postId: string) => {
+  const userEmail = await getSessionEmailOrThrow();
+  await prisma.bookmark.deleteMany({
+    where: {
+      author: userEmail,
+      postId: postId,
+    },
+  });
+};
+
 export const likePost = async (postId: string) => {
   const userEmail = await getSessionEmailOrThrow();
 
@@ -140,7 +160,15 @@ export const getSinglePostData = async (postId: string) => {
       author: await getSessionEmailOrThrow(),
     },
   });
-  return { post, profile, comments, commentsAuthors, myLike };
+
+  const bookmark = await prisma.bookmark.findFirst({
+    where: {
+      postId: post.id,
+      author: await getSessionEmailOrThrow(),
+    },
+  });
+
+  return { post, profile, comments, commentsAuthors, myLike, bookmark };
 };
 
 export const followProfile = async (profileIdToFollow: string) => {

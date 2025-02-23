@@ -9,17 +9,24 @@ interface userProfileProps {
 
 const UserProfilePage = async ({ params }: userProfileProps) => {
   const userName = (await params).username;
+  const sessionEmail = (await getSessionEmail()) || '';
   const profile = await prisma.profile.findFirstOrThrow({
     where: { username: userName },
   });
   const ourFollow = await prisma.follower.findFirst({
     where: {
-      followingProfileEmail: (await getSessionEmail()) || '',
+      followingProfileEmail: sessionEmail,
       followedProfileId: profile.id,
     },
   });
 
-  return <ProfileContent profile={profile} ourFollow={ourFollow} />;
+  return (
+    <ProfileContent
+      isOurProfile={sessionEmail === profile.email}
+      profile={profile}
+      ourFollow={ourFollow}
+    />
+  );
 };
 
 export default UserProfilePage;

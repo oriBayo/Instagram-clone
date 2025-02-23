@@ -4,7 +4,15 @@ import { Post } from '@prisma/client';
 import { HeartIcon } from 'lucide-react';
 import { useState } from 'react';
 
-const Like = ({ post, isLiked }: { post: Post; isLiked: boolean }) => {
+const Like = ({
+  post,
+  isLiked,
+  withText = true,
+}: {
+  post: Post;
+  isLiked: boolean;
+  withText?: boolean;
+}) => {
   const [likedByMe, setLikedByMe] = useState(!!isLiked);
   const [likesCount, setLikesCount] = useState(post.likesCount);
 
@@ -24,11 +32,11 @@ const Like = ({ post, isLiked }: { post: Post; isLiked: boolean }) => {
   };
 
   return (
-    <div className='flex gap-2'>
+    <div className='flex gap-1 items-center'>
       <button onClick={handleLike}>
         <HeartIcon className={likedByMe ? 'text-red-500 fill-red-500' : ''} />
       </button>
-      {likesCount} people likes this
+      {likesCount} {withText && 'people likes this'}
     </div>
   );
 };

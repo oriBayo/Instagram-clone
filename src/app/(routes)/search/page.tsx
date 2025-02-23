@@ -1,3 +1,4 @@
+import Loading from '@/components/Loading';
 import SearchForm from '@/components/SearchForm';
 import SearchResult from '@/components/SearchResult';
 import { Suspense } from 'react';
@@ -13,7 +14,7 @@ const SearchPage = async ({
       <div className='max-w-lg mx-auto'>
         <SearchForm />
         {typeof query !== 'undefined' && (
-          <Suspense fallback='Loading...'>
+          <Suspense fallback={<Loading />}>
             <SearchResult query={query} />
           </Suspense>
         )}

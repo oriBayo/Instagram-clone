@@ -1,48 +1,39 @@
-import { Like, Post, Profile } from '@prisma/client';
+import { Bookmark, Comment, Like, Post, Profile } from '@prisma/client';
 import React from 'react';
 import Image from 'next/image';
 import Avatar from './Avatar';
 import Link from 'next/link';
 import Likes from './Like';
-import { BookmarkIcon } from 'lucide-react';
+import CommentIcon from './CommentIcon';
+import BookmarkIcon from './Bookmark';
 
 const HomePosts = ({
   posts,
   profiles,
   likes,
+  comments,
+  bookmarks,
 }: {
   posts: Post[];
   profiles: Profile[];
   likes: Like[];
+  comments: Comment[];
+  bookmarks: Bookmark[];
 }) => {
   return (
-    <div className='max-w-xl mx-auto flex flex-col gap-8 py-8'>
+    <div className='max-w-xl mx-auto flex flex-col gap-8 pb-12 '>
       {posts.map((post) => {
         const profile = profiles.find((p) => p.email === post.author);
+        const commentsPerProfile = comments.filter(
+          (comment) => comment.postId === post.id
+        );
+        const bookmark = bookmarks.find(
+          (bookmark) => bookmark.postId === post.id
+        );
         return (
-          <div key={post.id} className=''>
-            <div className='h-[500px] flex flex-col justify-center'>
-              <Link href={`/posts/${post.id}`}>
-                <Image
-                  className='rounded-lg shadow-md shadow-black/50 max-h-[400px]'
-                  src={post.image}
-                  alt=''
-                  layout='responsive'
-                  width={300}
-                  height={300}
-                />
-              </Link>
-
-              <div className='flex justify-between items-center my-4'>
-                <div className='flex gap-2'>
-                  <button>
-                    <BookmarkIcon />
-                  </button>
-                  <Likes
-                    post={post}
-                    isLiked={!!likes?.find((p) => p.postId === post.id)}
-                  />
-                </div>
+          <div key={post.id}>
+            <div className='flex flex-col mb-3'>
+              <div className='flex justify-end mb-2'>
                 <Link
                   href={`/users/${profile?.username}`}
                   className='flex justify-center items-center gap-2'
@@ -51,8 +42,32 @@ const HomePosts = ({
                   <Avatar src={profile?.avatar || ''} />
                 </Link>
               </div>
+
+              <Link href={`/posts/${post.id}`}>
+                <Image
+                  className='rounded-lg shadow-md shadow-black/50 max-h-[500px] '
+                  src={post.image}
+                  alt=''
+                  layout='responsive'
+                  width={300}
+                  height={300}
+                />
+              </Link>
+
+              <div className='flex justify-between  gap-2 mt-3 px-3'>
+                <p>{post.description}</p>
+                <div className='flex gap-3'>
+                  <BookmarkIcon post={post} isActive={!!bookmark} />
+                  <CommentIcon commentsCount={commentsPerProfile.length} />
+
+                  <Likes
+                    post={post}
+                    withText={false}
+                    isLiked={!!likes?.find((p) => p.postId === post.id)}
+                  />
+                </div>
+              </div>
             </div>
-            <p>{post.description}</p>
           </div>
         );
       })}
