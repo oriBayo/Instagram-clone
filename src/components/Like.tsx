@@ -33,10 +33,12 @@ const Like = ({
 
   return (
     <div className='flex gap-1 items-center'>
-      <button onClick={handleLike}>
+      <button onClick={handleLike} className='dark:text-gray-300'>
         <HeartIcon className={likedByMe ? 'text-red-500 fill-red-500' : ''} />
       </button>
-      {likesCount} {withText && 'people likes this'}
+      <p className='dark:text-gray-300'>
+        {likesCount} {withText && 'people likes this'}
+      </p>
     </div>
   );
 };

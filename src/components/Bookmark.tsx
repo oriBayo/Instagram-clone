@@ -12,7 +12,6 @@ const Bookmark = ({
   isActive: boolean;
 }) => {
   const [toggle, setToggle] = useState<boolean>(isActive);
-  console.log(toggle);
   const handleClick = async () => {
     if (toggle) {
       await deleteBookmark(post.id);
@@ -23,11 +22,13 @@ const Bookmark = ({
   };
   return (
     <button onClick={handleClick}>
-      {toggle ? (
-        <BookmarkCheckIcon size={34} className='fill-blue-500 text-white' />
-      ) : (
-        <BookmarkIcon />
-      )}
+      <div className='dark:text-gray-300'>
+        {toggle ? (
+          <BookmarkCheckIcon size={34} className='fill-blue-500 text-white' />
+        ) : (
+          <BookmarkIcon />
+        )}
+      </div>
     </button>
   );
 };

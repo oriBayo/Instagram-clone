@@ -16,15 +16,17 @@ const Comment = ({
       <Avatar src={profile.avatar || ''} />
       <div className='w-full'>
         <div className='flex justify-between items-center'>
-          <div>
+          <div className='dark:text-gray-300'>
             <h3>{profile.name}</h3>
-            <h4 className='text-gray-600 -mt-1 text-sm'>@{profile.username}</h4>
+            <h4 className='dark:text-gray-400 text-gray-600 -mt-1 text-sm'>
+              @{profile.username}
+            </h4>
           </div>
         </div>
-        <div className='bg-gray-200 p-4 rounded-md mt-2 border border-gray-300'>
-          <p>{text}</p>
+        <div className='dark:bg-gray-300 dark:border-none bg-gray-200 p-4 rounded-md mt-2 border border-gray-300'>
+          <p className='dark:text-gray-500'>{text}</p>
         </div>
-        <div className='text-end text-xs text-gray-500'>
+        <div className='dark:text-gray-400 text-end text-xs text-gray-500'>
           {format(createdAt, 'yyyy-MM-dd HH:mm:ss')}
         </div>
       </div>

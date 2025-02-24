@@ -5,7 +5,7 @@ import React from 'react';
 const Loading = () => {
   return (
     <div className='h-96 flex justify-center items-center'>
-      <ClipLoader size={100} />
+      <ClipLoader color='#aaa' size={100} />
     </div>
   );
 };

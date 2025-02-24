@@ -65,10 +65,10 @@ const ProfileTopBar = ({
 }) => {
   return (
     <section className='flex justify-between items-center'>
-      <Link href='/'>
+      <Link href='/' className='dark:text-gray-300'>
         <ChevronLeft />
       </Link>
-      <div className='font-bold flex items-center gap-2'>
+      <div className='dark:text-gray-300 font-bold flex items-center gap-2'>
         {profile.username}
         <div className='bg-ig-red size-5 rounded-full inline-flex justify-center items-center text-white'>
           <CheckIcon size={16} />
@@ -76,7 +76,7 @@ const ProfileTopBar = ({
       </div>
       <div>
         {isOurProfile && (
-          <Link href='/settings'>
+          <Link href='/settings' className='dark:text-gray-300'>
             <CogIcon />
           </Link>
         )}
@@ -110,9 +110,11 @@ const ProfileAvatar = ({ profile }: { profile: Profile }) => {
 const ProfileInfo = ({ profile }: { profile: Profile }) => {
   return (
     <section className='text-center mt-4'>
-      <h1 className='text-xl font-bold'>{profile.name}</h1>
-      <p className='text-gray-500 my-1'>{profile.subtitle}</p>
-      <p>{profile.bio}</p>
+      <h1 className='dark:text-gray-200 text-xl font-bold'>{profile.name}</h1>
+      <p className='dark:text-gray-400 text-gray-500 my-1'>
+        {profile.subtitle}
+      </p>
+      <p className='dark:text-gray-500'>{profile.bio}</p>
     </section>
   );
 };
@@ -131,22 +133,32 @@ const ProfileNavs = ({
       <div className='flex justify-center gap-4 font-bold'>
         <button
           onClick={() => setActiveTab('Posts')}
-          className={activeTab === 'Posts' ? 'text-black' : 'text-gray-400'}
+          className={`${
+            activeTab === 'Posts'
+              ? 'text-black dark:text-white'
+              : 'text-gray-400 dark:text-gray-500'
+          }`}
         >
           Posts
         </button>
         <button
           onClick={() => setActiveTab('Highlight')}
-          className={activeTab === 'Highlight' ? 'text-black' : 'text-gray-400'}
+          className={`${
+            activeTab === 'Highlight'
+              ? 'text-black dark:text-white'
+              : 'text-gray-400 dark:text-gray-500'
+          }`}
         >
           Highlights
         </button>
         {isOurProfile && (
           <button
             onClick={() => setActiveTab('Bookmarks')}
-            className={
-              activeTab === 'Bookmarks' ? 'text-black' : 'text-gray-400'
-            }
+            className={`${
+              activeTab === 'Bookmarks'
+                ? 'text-black dark:text-white'
+                : 'text-gray-400 dark:text-gray-500'
+            }`}
           >
             Bookmarked
           </button>

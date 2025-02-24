@@ -15,7 +15,7 @@ const SearchResult = async ({ query }: { query: string }) => {
   });
   return (
     <div>
-      <h1 className='text-lg mt-4'>{`Search results for : "${query}"`}</h1>
+      <h1 className='dark:text-gray-300 text-lg mt-4'>{`Search results for : "${query}"`}</h1>
       <ProfileResult profiles={profiles} />
       <PostResults posts={posts} />
     </div>

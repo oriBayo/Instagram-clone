@@ -33,7 +33,7 @@ const HomePosts = ({
         return (
           <div key={post.id}>
             <div className='flex flex-col mb-3'>
-              <div className='flex justify-end mb-2'>
+              <div className='flex justify-end mb-4 dark:text-white'>
                 <Link
                   href={`/users/${profile?.username}`}
                   className='flex justify-center items-center gap-2'
@@ -54,7 +54,7 @@ const HomePosts = ({
                 />
               </Link>
 
-              <div className='flex justify-between  gap-2 mt-3 px-3'>
+              <div className='dark:text-gray-300 flex justify-between gap-2 mt-3 px-3'>
                 <p>{post.description}</p>
                 <div className='flex gap-3'>
                   <BookmarkIcon post={post} isActive={!!bookmark} />
