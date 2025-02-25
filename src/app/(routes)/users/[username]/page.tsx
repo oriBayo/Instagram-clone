@@ -19,12 +19,19 @@ const UserProfilePage = async ({ params }: userProfileProps) => {
       followedProfileId: profile.id,
     },
   });
+  const posts = await prisma.post.findMany({
+    where: {
+      author: profile.email,
+    },
+  });
 
   return (
     <ProfileContent
       isOurProfile={sessionEmail === profile.email}
       profile={profile}
       ourFollow={ourFollow}
+      bookmarks={null}
+      posts={posts}
     />
   );
 };
