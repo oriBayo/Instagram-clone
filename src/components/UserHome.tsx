@@ -2,8 +2,13 @@ import HomeTopRow from '@/components/HomeTopRow';
 import { getSessionEmailOrThrow } from '@/actions';
 import { prisma } from '@/db';
 import HomePosts from './HomePosts';
+import { auth } from '@/auth';
 
 const UserHome = async () => {
+  const session = await auth();
+  if (!session) {
+    return <div>Please log in to view this content.</div>;
+  }
   const sessionEmail = await getSessionEmailOrThrow();
 
   const follows = await prisma.follower.findMany({

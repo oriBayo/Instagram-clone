@@ -4,11 +4,13 @@ import { prisma } from '@/db';
 import SettingContent from '@/components/SettingContent';
 import { Suspense } from 'react';
 import Loading from '@/components/Loading';
+import { redirect } from 'next/navigation';
 
 const SettingsPage = async () => {
   const session = await auth();
+
   if (!session?.user?.email) {
-    return 'not logged out';
+    return redirect('/login');
   }
   const profile = await prisma.profile.findFirst({
     where: { email: session.user.email },
