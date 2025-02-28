@@ -74,7 +74,7 @@ export default function Login() {
         {/* Sign Up Container */}
         <div className='flex items-center justify-center w-full max-w-sm bg-white border border-gray-300 rounded p-4'>
           <p className='text-sm'>
-            Don't have an account?{' '}
+            {"Don't have an account?"}{' '}
             <a href='#' className='text-blue-500 font-semibold'>
               Sign up
             </a>
