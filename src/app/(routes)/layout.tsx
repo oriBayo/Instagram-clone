@@ -3,10 +3,10 @@ import localFont from 'next/font/local';
 import '../globals.css';
 import '@radix-ui/themes/styles.css';
 import { Theme } from '@radix-ui/themes';
-import MobileNav from '@/components/MobileNav';
-import DesktopNav from '@/components/DesktopNav';
-import ThemeObserver from '@/components/ThemeObserver';
+import { SessionProvider } from 'next-auth/react';
+import LayoutContent from './LayoutContent'; // We'll create this next
 
+// Font setup
 const geistSans = localFont({
   src: '../fonts/GeistVF.woff',
   variable: '--font-geist-sans',
@@ -35,17 +35,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Theme>
-          {modal}
-          <div className='flex min-h-screen dark:bg-gray-950'>
-            <DesktopNav />
-            <div className='p-2 mt-6 flex justify-around w-full'>
-              <div className='w-full'>{children}</div>
-            </div>
-          </div>
-          <MobileNav />
-        </Theme>
-        <ThemeObserver />
+        <SessionProvider>
+          <Theme>
+            <LayoutContent modal={modal}>{children}</LayoutContent>
+          </Theme>
+        </SessionProvider>
       </body>
     </html>
   );
